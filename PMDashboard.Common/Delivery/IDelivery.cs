@@ -1,13 +1,14 @@
-﻿namespace PMDashboard.Common.Delivery
+﻿using LiteDB;
+
+namespace PMDashboard.Common.Delivery
 {
    public interface IDelivery
    {
-        public Guid Id { get; set; }
-        public Guid ProductId { get; set; }
+        [BsonId]
+        public int Id { get; set; }
+        public int ProductId { get; set; }
         public CategoryTypes Category { get; set;  }
-        int ProductCode { get; set; }
-        DateOnly DeliveryDate { get; set; }
+        DateTime DeliveryDate { get; set; }
         string Provider { get; set; }
-
     }
 }

@@ -5,45 +5,39 @@ namespace PMDashboard.Api.Repositories
 	public class LiteDb : ILiteDb
 	{
 		public LiteDatabase Database { get; set; }
-		public LiteDb()
+		public LiteDb(string databaseFileName = "Data.db")
 		{
+			var connectionString = $"Filename={databaseFileName};connection=shared";
 			if (Database == null)
 			{
-				using (var db = new LiteDatabase(@"Filename=Dataa.db;connection=shared"))
+				using (var db = new LiteDatabase(@connectionString))
 				{
 					var col = db.GetCollection<Common.Product.Product>("products");
 					var delCol = db.GetCollection<Common.Delivery.Delivery>("deliveries");
 
-					var newProductId = new Guid();
-					var newProductCode = 0;
-
-					// Create your new customer instance
-					var customerExample = new Common.Product.Product
+					if(col.Count() == 0)
 					{
-						Id = newProductId,
-						Category = Common.CategoryTypes.Food,
-						DateAdded = new DateOnly(),
-						Price = 10.10,
-						ProductCode = newProductCode,
-						StockQuantity = 10,
-						Name = "Bread",
-					};
+						var customerExample = new Common.Product.Product
+						{
+							Category = Common.CategoryTypes.Food,
+							Price = 10.10,
+							StockQuantity = 10,
+							Name = "Bread",
+						};
 
-					var deliveryExample = new Common.Delivery.Delivery
-					{
-						Id = new Guid(),
-						ProductId = newProductId,
-						ProductCode = newProductCode,
-						Category = Common.CategoryTypes.Food,
-						DeliveryDate = new DateOnly(),
-						Provider = "Royal Mail"
-					};
+						var deliveryExample = new Common.Delivery.Delivery
+						{
+							ProductId = customerExample.Id,
+							Category = Common.CategoryTypes.Food,
+							Provider = "Royal Mail"
+						};
 
-					col.EnsureIndex(x => x.Id);
-					delCol.EnsureIndex(x => x.Id);
+						col.EnsureIndex(x => x.Id);
+						delCol.EnsureIndex(x => x.Id);
 
-					col.Insert(customerExample);
-					delCol.Insert(deliveryExample);
+						col.Insert(customerExample);
+						delCol.Insert(deliveryExample);
+					}
 
 					Database = db;
 				}

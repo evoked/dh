@@ -11,9 +11,9 @@ namespace PMDashboard.Api.Services.Product
 			_productRepository = productRepository;
 		}
 
-		public void CreateNewProduct(Common.Product.Product newProduct)
+		public int CreateNewProduct(Common.Product.Product newProduct)
 		{
-			_productRepository.Create(newProduct);
+			return _productRepository.Create(newProduct);
 		}
 
 		public IEnumerable<Common.Product.Product> GetProducts()
@@ -21,16 +21,19 @@ namespace PMDashboard.Api.Services.Product
 			return _productRepository.GetAll();
 		}
 
-		public Dictionary<string, int> GetTotalStockPerCategory()
+		public Common.Product.Product? GetProduct(int id)
 		{
-			var amounts = new Dictionary<string, int>();
-			foreach (CategoryTypes category in Enum.GetValues(typeof(CategoryTypes)))
-			{
-				var catAmount = _productRepository.GetCountByCategory(category);
+			return _productRepository.Get(id);
+		}
 
-				amounts.Add(category.ToString(), catAmount);
-			}
-			return amounts;
+		public bool DeleteProduct(int id)
+		{
+			return _productRepository.Delete(id);
+		}
+
+		public bool UpdateProduct(Common.Product.Product updatedProduct)
+		{
+			return _productRepository.Update(updatedProduct);
 		}
 	}
 }

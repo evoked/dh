@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using PMDashboard.Api.Repositories;
-using PMDashboard.Api.Repositories.Product;
 using PMDashboard.Api.Services.Product;
+using PMDashboard.Common;
 using PMDashboard.Common.Product;
 
 namespace PMDashboard.Api.Controllers
@@ -16,14 +15,18 @@ namespace PMDashboard.Api.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        [ActionName("GetCategoryStock")]
-        public IActionResult GetTotalStockPerCategory()
-        {
-            return new OkObjectResult(_productService.GetTotalStockPerCategory());
-        }
+		[HttpPost]
+		[ActionName("Get")]
+		public IActionResult Get([FromForm] int id = 1)
+		{
+            var product = _productService.GetProduct(id);
+            if (product == null) {
+                return new NotFoundObjectResult(id);
+            }
+			return new OkObjectResult(product);
+		}
 
-        [HttpGet]
+		[HttpGet]
         [ActionName("GetAll")]
         public IActionResult GetAll()
         {
@@ -32,8 +35,15 @@ namespace PMDashboard.Api.Controllers
 
         [HttpPost]
         [ActionName("Create")]
-		public IActionResult Create(Product newProduct)
+		public IActionResult Create([FromForm]string name, [FromForm]CategoryTypes category, [FromForm]double price, [FromForm]int stockQuantity)
 		{
+            var newProduct = new Product
+			{
+				Name = name,
+				Category = category,
+				Price = price,
+				StockQuantity = stockQuantity
+			};
 			_productService.CreateNewProduct(newProduct);
             return new OkObjectResult(newProduct);
 		}

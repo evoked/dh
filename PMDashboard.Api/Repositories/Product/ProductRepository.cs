@@ -1,5 +1,4 @@
 ﻿using LiteDB;
-using PMDashboard.Common;
 
 namespace PMDashboard.Api.Repositories.Product
 {
@@ -12,27 +11,22 @@ namespace PMDashboard.Api.Repositories.Product
             _liteDb = liteDb;
             _liteCollection = _liteDb.Database.GetCollection<Common.Product.Product>("products");
         }
-        public Common.Product.Product? Get(Guid id)
+        public Common.Product.Product? Get(int id)
         {
-			return _liteCollection.Find(x => x.Id == id).First();
+			return _liteCollection.FindById(id);
         }
 
 		public IEnumerable<Common.Product.Product> GetAll()
 		{
 		    return _liteCollection.FindAll();
         }
-
-		public int GetCountByCategory(CategoryTypes category)
-		{
-		    return _liteCollection.Find(x => x.Category == category).Count();
-        }
-
-		public void Create(Common.Product.Product product)
+		public int Create(Common.Product.Product product)
         {
-			_liteCollection.Insert(product);
+			var id = (int)_liteCollection.Insert(product);
+            return id;
         }
 
-        public bool Delete(Guid id)
+        public bool Delete(int id)
         {
 			return _liteCollection.Delete(id);
 		}
@@ -41,7 +35,5 @@ namespace PMDashboard.Api.Repositories.Product
         {
 			return _liteCollection.Update(product);
 		}
-
-
     }
 }

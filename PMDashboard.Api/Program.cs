@@ -4,15 +4,24 @@ using PMDashboard.Api.Services.Product;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddSingleton<ILiteDb, LiteDb>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<ILiteDb, LiteDb>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddTransient<IProductService, ProductService>();
+
+var specificOrgins = "AppOrigins";
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy(name: specificOrgins,
+					  policy =>
+					  {
+						  policy.WithOrigins("http://localhost:5173");
+					  });
+});
 
 var app = builder.Build();
 
@@ -22,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(specificOrgins);
 
 app.UseHttpsRedirection();
 

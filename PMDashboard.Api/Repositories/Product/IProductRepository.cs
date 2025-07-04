@@ -5,10 +5,9 @@ namespace PMDashboard.Api.Repositories.Product
 {
     public interface IProductRepository
     {
-        int GetCountByCategory(CategoryTypes category);
-        void Create(Common.Product.Product product);
-        bool Delete(Guid id);
-        Common.Product.Product? Get(Guid id);
+		int Create(Common.Product.Product product);
+        bool Delete(int id);
+        Common.Product.Product? Get(int id);
         bool Update(Common.Product.Product product);
         IEnumerable<Common.Product.Product> GetAll();
 

@@ -2,8 +2,10 @@
 {
 	public interface IProductService
 	{
-		void CreateNewProduct(Common.Product.Product newProduct);
+		int CreateNewProduct(Common.Product.Product newProduct);
+		bool UpdateProduct(Common.Product.Product updatedProduct);
 		IEnumerable<Common.Product.Product> GetProducts();
-		Dictionary<string, int> GetTotalStockPerCategory();
+		Common.Product.Product? GetProduct(int id);
+		bool DeleteProduct(int id);
 	}
 }

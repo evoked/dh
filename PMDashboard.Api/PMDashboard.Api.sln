@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36203.30 d17.14
+VisualStudioVersion = 17.14.36203.30
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMDashboard.Api", "PMDashboard.Api.csproj", "{EFA9E7BB-3EAC-4924-8B60-5558B7BB730C}"
 EndProject
@@ -10,6 +10,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMDashboard.Tests", "..\PMDashboard.Tests\PMDashboard.Tests.csproj", "{83F6A6D8-94D6-4453-A2DF-88249C4FB08E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E041300A-EBFE-44C8-A3DF-9059AE84D0A7} = {E041300A-EBFE-44C8-A3DF-9059AE84D0A7}
+		{EFA9E7BB-3EAC-4924-8B60-5558B7BB730C} = {EFA9E7BB-3EAC-4924-8B60-5558B7BB730C}
 	EndProjectSection
 EndProject
 Global
