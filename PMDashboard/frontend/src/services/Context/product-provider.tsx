@@ -3,7 +3,7 @@ import type { IProduct } from "../../types/IProduct"
 import { ProductContext } from "./product-context"
 import type { IProductDTO } from "../../types/IProductDTO"
 
-const baseUrl = "https://localhost:7123/api/Product"
+const baseUrl = "http://localhost:5059/api/Product"
 
 export default function ProductProvider({children}: {children: React.ReactNode}) {
     const [products, setProducts] = useState<IProduct[]>([])
