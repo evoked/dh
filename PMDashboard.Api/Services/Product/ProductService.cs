@@ -1,5 +1,4 @@
 ﻿using PMDashboard.Api.Repositories.Product;
-using PMDashboard.Common;
 
 namespace PMDashboard.Api.Services.Product
 {

@@ -33,7 +33,19 @@ namespace PMDashboard.Api.Controllers
             return new OkObjectResult(_productService.GetProducts());
         }
 
-        [HttpPost]
+		[HttpPost]
+		[ActionName("Delete")]
+		public IActionResult Delete([FromForm]int id)
+		{
+			var productDeleted = _productService.DeleteProduct(id);
+			if (productDeleted)
+			{
+				return new OkObjectResult(id);
+			} 
+			return new NotFoundObjectResult(id);
+		}
+
+		[HttpPost]
         [ActionName("Create")]
 		public IActionResult Create([FromForm]string name, [FromForm]CategoryTypes category, [FromForm]double price, [FromForm]int stockQuantity)
 		{
