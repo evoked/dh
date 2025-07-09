@@ -1,3 +1,5 @@
+![Product Management Dashboard](image.png)
+
 # Product Management Dashboard
 
 A simple full-stack application for managing products with a RESTful API backend and React frontend.
