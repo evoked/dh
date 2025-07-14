@@ -185,14 +185,15 @@ The application uses **LiteDB**, an embedded NoSQL database that stores data in 
 - ⛔ User interaction tests
 - ⛔ Component rendering tests
 
-
 ## 💢 Todo
 ### Frontend
 - More tests. Further split out individual components from e.g. from CreateModalComponent and test functionality in conjunction of ProductProvider. 
 - Edit and delete product modals
 - Selector to change graph type
 - Update styling
+- Error handling
 
 ### Backend
 - More tests, and seperate test suites
-- Capability for deliveries
+- Functionality for deliveries
+- Logging & exception handling, incorporate into tests
